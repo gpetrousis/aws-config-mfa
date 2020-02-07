@@ -1,8 +1,7 @@
+<!-- Name -->
 # AWS Config MFA
-*Alpha version*
 
-![GitHub](https://img.shields.io/github/license/gpetrousis/foodjammingui.svg)
-
+<!-- Description -->
 An aws configure wrapper tha adds support for MFA protected profiles.
 
 When adding a profile, the wrapper will add a new entry in the credentials and config files
@@ -12,17 +11,27 @@ using the credentials from `aws get-session-token` without the `-mfa` suffix, in
 a session token and an expiration date.
 NOTE: This might lead to overwritting existing profiles.
 
-## Requirements
-- Python3.6
-- boto3
+<!-- Badges -->
+![GitHub](https://img.shields.io/github/license/gpetrousis/foodjammingui.svg)
 
-## Usagej
+<!-- Visuals -->
+
+<!-- Installation -->
+## Installation
+`python3 setup.py install`
+<!-- 	Requirements -->
+### Requirements
+boto3
+
+<!-- Usage -->
+## Usage
 `aws-config-mfa add --profile <profile_name>`
 
 `aws-config auth-mfa --profile <profile_name> --mfa <mfa_pin>`
 
 `aws-config --help`
 
+<!-- Roadmap -->
 ## Future improvements
 - Do not request new token if the current one is not expired. Support force token update.
 - Add default values to the --help command.
@@ -34,5 +43,14 @@ NOTE: This might lead to overwritting existing profiles.
 - Add support to add non-mfa config profiles
 - Add token ttl argument
 - Handle exceptions
+- Make it a standalone app
 
-## Licence MIT
+<!-- Authors/Aknowldement -->
+
+<!-- Licence -->
+## Licence
+[MIT](LICENCE)
+
+<!-- Project status -->
+## Project status
+This is the first iteration. It has the bare minimum functionality but it works.

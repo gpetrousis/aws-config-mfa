@@ -121,7 +121,7 @@ def auth_mfa(context):
 	with open(credentials_path, 'w') as credentialsfile:
 		credentials.write(credentialsfile)
 
-def main():
+def run():
 	context = parse_arguments()
 
 	print(context)
@@ -132,7 +132,3 @@ def main():
 	elif(context.command == 'auth-mfa'):
 		auth_mfa(context)
 		print('Done')
-
-
-if __name__ == '__main__':
-    main()
