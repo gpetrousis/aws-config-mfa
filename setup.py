@@ -25,7 +25,8 @@ setuptools.setup(
     ],
     entry_points={
         'console_scripts': [
-            'aws-config-mfa=awsconfigmfa:run',
+            'aws-configure-mfa=awsconfigmfa:add_profile',
+            'aws-mfa-auth=awsconfigmfa:auth_mfa',
         ],
     },
     python_requires='>=3.6',

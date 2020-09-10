@@ -43,7 +43,9 @@ boto3
 - Add support to add non-mfa config profiles
 - Add token ttl argument
 - Handle exceptions
-- Make it a standalone app
+- Add tests
+- Add changelog
+- Add auto completion
 
 <!-- Authors/Aknowldement -->
 
