@@ -11,7 +11,7 @@ def parse_arguments():
 	parser = argparse.ArgumentParser(description='Create aws profiles that also support mfa '
 												 'and fetch temporary credentials')
 	parser.add_argument('command', metavar='command', type=str, nargs=1, choices=['add', 'auth-mfa'], help='Which operation to run')
-	parser.add_argument('-p, --profile', dest='profile', type=str, help='AWS Configuration profile to use', default='default')
+	parser.add_argument('-p', '--profile', dest='profile', type=str, help='AWS Configuration profile to use', default='default')
 	parser.add_argument('--mfa', dest='mfa', help='MFA pin code')
 	parser.add_argument('--config-path', dest='config_path', help='Path to aws configuration', default=os.path.expanduser('~/.aws'))
 

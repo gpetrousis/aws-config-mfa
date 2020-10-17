@@ -38,6 +38,7 @@ boto3
 - Add tests
 - Add changelog
 - Add auto completion
+- Capture ctrl+c
 
 <!-- Authors/Aknowldement -->
 
