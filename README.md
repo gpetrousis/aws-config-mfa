@@ -1,7 +1,5 @@
-<!-- Name -->
-# AWS Config MFA
+# AWS MFA Config
 
-<!-- Description -->
 An aws configure wrapper tha adds support for MFA protected profiles.
 
 When adding a profile, the wrapper will add a new entry in the credentials and config files
@@ -11,33 +9,27 @@ using the credentials from `aws get-session-token` without the `-mfa` suffix, in
 a session token and an expiration date.
 NOTE: This might lead to overwritting existing profiles.
 
-<!-- Badges -->
-![GitHub](https://img.shields.io/github/license/gpetrousis/foodjammingui.svg)
+![GitHub](https://img.shields.io/github/license/gpetrousis/aws-mfa-config.svg)
 
-<!-- Visuals -->
-
-<!-- Installation -->
 ## Installation
 `python3 setup.py install`
-<!-- 	Requirements -->
+
 ### Requirements
 boto3
 
-<!-- Usage -->
 ## Usage
-`aws-config-mfa add --profile <profile_name>`
+`aws-mfa-config add --profile <profile_name>`
 
-`aws-config auth-mfa --profile <profile_name> --mfa <mfa_pin>`
+`aws-mfa-config auth-mfa --profile <profile_name> --mfa <mfa_pin>`
 
-`aws-config --help`
+`aws-mfa-config --help`
 
-<!-- Roadmap -->
 ## Future improvements
 - Do not request new token if the current one is not expired. Support force token update.
 - Add default values to the --help command.
 - Make --mfa mandatory or add it as a prompt.
 - Add update profile support
-- Use petpass for credentials
+- Use getpass for credentials
 - Move prompts to the same line as the text.
 - Update profile as an object and not as separate values.
 - Add support to add non-mfa config profiles

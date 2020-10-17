@@ -5,33 +5,21 @@ import sys
 import boto3
 
 # TODO: Do not request new token if it's not expired. Or force update
-def parse_arguments(self, parser):
-	parser.add_argument(
-		'profile',
-		nargs='?',
-		type=str,
-		help='AWS Configuration profile to use',
-		default='default',
-	)
-
-	parser.add_argument(
-		'--config-path',
-		dest='config_path',
-		help='Path to aws configuration',
-		default=os.path.expanduser('~/.aws'),
-	)
+def parse_arguments():
+	# TODO: Print default values
+	# TODO: Make --mfa mandatory for auth-mfa command
+	parser = argparse.ArgumentParser(description='Create aws profiles that also support mfa '
+												 'and fetch temporary credentials')
+	parser.add_argument('command', metavar='command', type=str, nargs=1, choices=['add', 'auth-mfa'], help='Which operation to run')
+	parser.add_argument('-p, --profile', dest='profile', type=str, help='AWS Configuration profile to use', default='default')
+	parser.add_argument('--mfa', dest='mfa', help='MFA pin code')
+	parser.add_argument('--config-path', dest='config_path', help='Path to aws configuration', default=os.path.expanduser('~/.aws'))
 
 	context = parser.parse_args()
+	context.command = context.command[0]
 	return context
 
-def add_profile(self):
-	parser = argparse.ArgumentParser(
-		description='Create aws profiles that also support mfa and fetch temporary credentials',
-		formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-	)
-
-	context = parse_arguments(parser)
-
+def add_profile(context):
 	credentials_path = os.path.join(context.config_path, 'credentials')
 	config_path = os.path.join(context.config_path, 'config')
 
@@ -94,13 +82,7 @@ def add_profile(self):
 	with open(credentials_path, 'w') as credentialsfile:
 		credentials.write(credentialsfile)
 
-def auth_mfa():
-	parser = argparse.ArgumentParser(
-		description='Authenticate an aws configuration profile using MFA',
-		formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-	)
-	context = parse_arguments(parser)
-
+def auth_mfa(context):
 	credentials_path = os.path.join(context.config_path, 'credentials')
 
 	if (not os.path.exists(credentials_path)):
@@ -118,18 +100,13 @@ def auth_mfa():
 
 	session = boto3.Session(profile_name=profile_name_mfa)
 
-
 	sts_client = session.client('sts')
 	profile_name='dev'
-
-	print('MFA: ')
-	mfa = input()
-
 	response = sts_client.get_session_token(
 		# TODO: Add token ttl
 		# DurationSeconds=context.token_ttl,
 		SerialNumber=credentials[profile_name_mfa]['aws_mfa_device_arn'],
-		TokenCode=mfa
+		TokenCode=context.mfa
 	)
 
 	# TODO: Handle exceptions

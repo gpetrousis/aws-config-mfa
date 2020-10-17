@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="aws-config-mfa", # Replace with your own username
+    name="aws_mfa_config",
     version="0.0.1",
     author="Georgios Petrousis",
     author_email="gpetrousis@gmail.com",
@@ -12,7 +12,10 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/gpetrousis/aws-config-mfa",
-    py_modules=['awsconfigmfa'],
+    packages=['aws_mfa_config'],
+    license='MIT',
+    keywords='aws config mfa session',
+    zip_safe=False,
     install_requires=[
         'boto3'
     ],
@@ -25,8 +28,7 @@ setuptools.setup(
     ],
     entry_points={
         'console_scripts': [
-            'aws-configure-mfa=awsconfigmfa:add_profile',
-            'aws-mfa-auth=awsconfigmfa:auth_mfa',
+            'aws-mfa-config=aws_mfa_config.command_line:main',	
         ],
     },
     python_requires='>=3.6',
