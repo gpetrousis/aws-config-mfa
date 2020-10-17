@@ -1,5 +1,4 @@
 # AWS MFA Config
-
 An aws configure wrapper tha adds support for MFA protected profiles.
 
 When adding a profile, the wrapper will add a new entry in the credentials and config files
@@ -9,7 +8,7 @@ using the credentials from `aws get-session-token` without the `-mfa` suffix, in
 a session token and an expiration date.
 NOTE: This might lead to overwritting existing profiles.
 
-![GitHub](https://img.shields.io/github/license/gpetrousis/aws-mfa-config.svg)
+![GitHub](https://img.shields.io/github/license/gpetrousis/aws-mfa-config)
 
 ## Installation
 `python3 setup.py install`
@@ -39,13 +38,10 @@ boto3
 - Add changelog
 - Add auto completion
 - Capture ctrl+c
+- Publish to pypi
 
-<!-- Authors/Aknowldement -->
-
-<!-- Licence -->
 ## Licence
 [MIT](LICENCE)
 
-<!-- Project status -->
 ## Project status
 This is the first iteration. It has the bare minimum functionality but it works.
