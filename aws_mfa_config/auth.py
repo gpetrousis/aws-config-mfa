@@ -42,7 +42,7 @@ def mfa(context):
 
     mfa_token = read_mfa()
     response = sts_client.get_session_token(
-        # DurationSeconds=context.ttl,
+        DurationSeconds=context.ttl,
         SerialNumber=credentials[profile_name_mfa]['aws_mfa_device_arn'],
         TokenCode=mfa_token
     )
