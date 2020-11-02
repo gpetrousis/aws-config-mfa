@@ -1,4 +1,5 @@
 import auth
+import profile
 import aws_mfa_config
 
 
@@ -7,7 +8,7 @@ def main():
 
     print(context)
     if context.command == 'add':
-        aws_mfa_config.add_profile(context)
+        profile.add(context)
         print('Profile added')
 
     elif context.command == 'auth-mfa':
