@@ -1,9 +1,10 @@
 
-import sys
 import argparse
 import os
-import auth
 import profile
+
+import auth
+
 
 def add_common_arguments(parser):
     """Add common arguments to a parsers"""
