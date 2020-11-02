@@ -27,7 +27,6 @@ boto3
 - Add max num of retries on the MFA Prompt
 - Add tests
 - Do not request new token if the current one is not expired. Support force token update.
-- (Currently Wokring) Add update profile support
 - Add support to add non-mfa config profiles
 - Handle exceptions
 - Add changelog

@@ -16,7 +16,7 @@ def get_input(prompt, default_value, mask=False):
     if mask:
         existing_value = mask_value(default_value)
 
-    return input('{} [{}]: '.format(prompt, existing_value)).strip or default_value
+    return input('{} [{}]: '.format(prompt, existing_value)).strip() or default_value
 
 def add(context):
     """ Parse the command line arguments and return a context object """
