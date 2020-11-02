@@ -1,16 +1,13 @@
-import auth
-import profile
-import aws_mfa_config
+""" The run script of the aws_mfa_config package """
+import sys
 
+import parse_arguments
 
 def main():
-    context = aws_mfa_config.parse_arguments()
+    """ Main runtime function """
+    context = parse_arguments.parse(sys.argv[1:])
 
-    print(context)
-    if context.command == 'add':
-        profile.add(context)
-        print('Profile added')
+    context.func(context)
 
-    elif context.command == 'auth-mfa':
-        auth.mfa(context)
-        print('Done')
+if __name__ == "__main__":
+    main()
