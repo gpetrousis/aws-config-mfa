@@ -24,21 +24,18 @@ boto3
 `aws-mfa-config --help`
 
 ## Future improvements
-- Do not request new token if the current one is not expired. Support force token update.
-- Add default values to the --help command.
-- Make --mfa mandatory or add it as a prompt.
-- Add update profile support
-- Use getpass for credentials
-- Move prompts to the same line as the text.
-- Update profile as an object and not as separate values.
-- Add support to add non-mfa config profiles
-- Add token ttl argument
-- Handle exceptions
+- Add max num of retries on the MFA Prompt
 - Add tests
+- Do not request new token if the current one is not expired. Support force token update.
+- Add support to add non-mfa config profiles
+- Handle exceptions
 - Add changelog
 - Add auto completion
 - Capture ctrl+c
+- Update setuptools config
 - Publish to pypi
+- Print nice errors if the arguments are invalid
+- Print nice error when the MFA is wrong
 
 ## Licence
 [MIT](LICENCE)
