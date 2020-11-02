@@ -24,7 +24,8 @@ boto3
 `aws-mfa-config --help`
 
 ## Future improvements
-- Add max num of retries on the MFA Prompt
+- Improve Readme
+- Add meaningfull exit codes
 - Add tests
 - Do not request new token if the current one is not expired. Support force token update.
 - Add support to add non-mfa config profiles

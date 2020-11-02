@@ -6,15 +6,18 @@ import sys
 import re
 import boto3
 
+MAX_MFA_RETRIES = 3
+
 def read_mfa():
     """ Read an MFA code from the stdin and validate it """
-    while True:
+    for _ in range(MAX_MFA_RETRIES):
         mfa_token = input('MFA: ')
         if re.match(r"^\d{6}$", mfa_token):
             return mfa_token
 
         print("This doesn't look like an MFA code. Try again.")
 
+    return None
 
 def mfa(context):
     """ Authenticate using an MFA code """
@@ -34,13 +37,17 @@ def mfa(context):
     if profile_name_mfa not in credentials:
         print('The selected profile ({profile}) does not exist. Please create one.'.format(
             profile=profile_name_mfa))
-        sys.exit()
+        sys.exit(1)
 
     session = boto3.Session(profile_name=profile_name_mfa)
 
     sts_client = session.client('sts')
 
     mfa_token = read_mfa()
+    if mfa_token is None:
+        print('Could not read MFA Token. Exiting...')
+        sys.exit(1)
+
     response = sts_client.get_session_token(
         DurationSeconds=context.ttl,
         SerialNumber=credentials[profile_name_mfa]['aws_mfa_device_arn'],
