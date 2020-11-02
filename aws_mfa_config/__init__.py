@@ -11,7 +11,7 @@ def parse_arguments():
 	parser = argparse.ArgumentParser(description='Create aws profiles that also support mfa '
 												 'and fetch temporary credentials')
 	parser.add_argument('command', metavar='command', type=str, nargs=1, choices=['add', 'auth-mfa'], help='Which operation to run')
-	parser.add_argument('-p', '--profile', dest='profile', type=str, help='AWS Configuration profile to use', default='default')
+	parser.add_argument('-p', '--profile-name', dest='profile_name', type=str, help='AWS Configuration profile to use', default='default')
 	parser.add_argument('--mfa', dest='mfa', help='MFA pin code')
 	parser.add_argument('--config-path', dest='config_path', help='Path to aws configuration', default=os.path.expanduser('~/.aws'))
 
@@ -35,7 +35,7 @@ def add_profile(context):
 	config.read('/'.join([context.config_path, 'config']))
 	credentials.read('/'.join([context.config_path, 'credentials']))
 
-	profile_name = context.profile
+	profile_name = context.profile_name
 	# TODO: Update profile
 	# if(profile_name in config or profile_name in context):
 	# 	print('The selected profile exist. Would you like to update it? (y/n): ')
@@ -78,44 +78,6 @@ def add_profile(context):
 	# TODO: Add non-mfa config profile
 	with open(config_path, 'w') as configfile:
 		config.write(configfile)
-
-	with open(credentials_path, 'w') as credentialsfile:
-		credentials.write(credentialsfile)
-
-def auth_mfa(context):
-	credentials_path = os.path.join(context.config_path, 'credentials')
-
-	if (not os.path.exists(credentials_path)):
-		print('Could not locate a credentials file in {config_path}.'.format(config_path=context.config_path))
-		print('Please provide a path that contains a valid aws credentials and config file.')
-		sys.exit()
-
-	credentials = configparser.ConfigParser()
-	credentials.read('/'.join([context.config_path, 'credentials']))
-
-	profile_name_mfa = '-'.join([context.profile, 'mfa'])
-	if(profile_name_mfa not in credentials):
-		print('The selected profile does not exist. Please create one.')
-		sys.exit()
-
-	session = boto3.Session(profile_name=profile_name_mfa)
-
-	sts_client = session.client('sts')
-	profile_name='dev'
-	response = sts_client.get_session_token(
-		# TODO: Add token ttl
-		# DurationSeconds=context.token_ttl,
-		SerialNumber=credentials[profile_name_mfa]['aws_mfa_device_arn'],
-		TokenCode=context.mfa
-	)
-
-	# TODO: Handle exceptions
-	credentials[context.profile] = {
-		'aws_access_key_id': response['Credentials']['AccessKeyId'],
-		'aws_secret_access_key': response['Credentials']['SecretAccessKey'],
-		'aws_session_token': response['Credentials']['SessionToken'],
-		'aws_access_token_expiration': response['Credentials']['Expiration']
-	}
 
 	with open(credentials_path, 'w') as credentialsfile:
 		credentials.write(credentialsfile)
