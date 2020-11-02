@@ -24,8 +24,11 @@ def add_profile_subparser(subparsers):
     add_parser = profile_subparsers.add_parser('add', help='Add an AWS Profile')
     add_parser.set_defaults(func=profile.add)
 
+    delete_parser = profile_subparsers.add_parser('delete', help='Delete an AWS Profile')
+    delete_parser.set_defaults(func=profile.delete)
 
     add_common_arguments(add_parser)
+    add_common_arguments(delete_parser)
 
     return profile_parser
 
